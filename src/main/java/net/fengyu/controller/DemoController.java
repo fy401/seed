@@ -41,7 +41,7 @@ public class DemoController {
     }
 
 
-    @PostMapping("visit")
+    @PostMapping("/visit")
     public String visit(@RequestBody User user) {
 
         if(demoService.visit(user)) {
@@ -49,5 +49,15 @@ public class DemoController {
         } else {
             return "WRONG";
         }
+    }
+
+    @RequestMapping("/insertUser")
+    public boolean insertUser(@RequestParam(value = "userid", required = true) int userid,
+                              @RequestParam(value = "username", required = true) String username,
+                              @RequestParam(value = "city", required = true) String city,
+                              @RequestParam(value = "gender", required = true) int gender) {
+
+        //验证参数？
+        return demoService.insertUser(userid,username,city,gender);
     }
 }

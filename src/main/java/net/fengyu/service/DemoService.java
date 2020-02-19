@@ -2,6 +2,7 @@ package net.fengyu.service;
 
 import lombok.extern.java.Log;
 import net.fengyu.config.EnvConfig;
+import net.fengyu.dao1.UserDao;
 import net.fengyu.vo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,8 +11,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class DemoService {
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    @Autowired
+    private UserDao userDao;
+
     @Autowired
     private EnvConfig envConfig;
+
 
     public String getCurrentProfile() {
 
@@ -36,6 +42,15 @@ public class DemoService {
         }
 
         return true;
+    }
+
+    public boolean insertUser(int userid,String username,String city,int gender) {
+
+        int ret = this.userDao.insertUser( userid, username, city, gender);
+        if(ret == 1) {
+            return true;
+        }
+        return false;
     }
 
 }
